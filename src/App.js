@@ -3,7 +3,7 @@ import "./App.css";
 import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStepForward, faStepBackward } from "@fortawesome/free-solid-svg-icons";
-import {firestore} from './firebase'; //Import firestore
+import firestore from './firebase'; //Import firestore
 const phrases = [
   "No",
   "Are you sure?",
@@ -65,7 +65,7 @@ function App() {
   }
 
   function toggleMusic() {
-    setIsMusicPlaying(isMusicPlaying);
+    setIsMusicPlaying(!isMusicPlaying);
   }
 
   function handleNext() {
@@ -152,7 +152,7 @@ function App() {
         volume={0.5} // Adjust the volume as needed
         width="0px"
         height="0px"
-        autoPlay  // Add the autoPlay attribute
+        autoPlay={true}  // Add the autoPlay attribute
       />
 
     </div>
