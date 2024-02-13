@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -44,11 +44,11 @@ function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const yesButtonSize = noCount * 10 + 16;
 
-  const [responses, setResponses] = useState([]);
-  useEffect(() => {
+  //const [responses, setResponses] = useState([]);
+  //useEffect(() => {
     // Fetch responses from Firestore when the component mounts
-   getResponses();
-  }, []);
+  // getResponses();
+  //}, []);
 
   function handleYesClick() {
     storeResponse('Yes');   //Store 'yes' response in Firestore
@@ -86,7 +86,7 @@ function App() {
     });
   }
 
-  function getResponses() {
+  /*function getResponses() {
     // Retrieve responses from Firestore
     firestore
       .collection('user_responses')
@@ -95,7 +95,7 @@ function App() {
         const responseList = snapshot.docs.map((doc) => doc.data());
         setResponses(responseList);
       });
-  }
+  }*/
 
   return (
     <div className="valentine-container">
@@ -155,14 +155,6 @@ function App() {
         autoPlay  // Add the autoPlay attribute
       />
 
-     <div className="responses-container">   //Display responses from Firestore
-        <h2>User Responses</h2>
-        <ul>
-          {responses.map((response, index) => (
-            <li key={index}>{`User ${response.userId} responded with: ${response.response}`}</li>
-          ))}
-        </ul>
-      </div>
     </div>
     
   );
