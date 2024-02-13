@@ -3,7 +3,7 @@ import "./App.css";
 import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStepForward, faStepBackward } from "@fortawesome/free-solid-svg-icons";
-import firestore from './firebase'; //Import firestore
+//import firestore from './firebase'; //Import firestore
 const phrases = [
   "No",
   "Are you sure?",
@@ -44,19 +44,11 @@ function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const yesButtonSize = noCount * 10 + 16;
 
-  //const [responses, setResponses] = useState([]);
-  //useEffect(() => {
-    // Fetch responses from Firestore when the component mounts
-  // getResponses();
-  //}, []);
-
   function handleYesClick() {
-    storeResponse('Yes');   //Store 'yes' response in Firestore
     setYesPressed(true);
   }
 
   function handleNoClick() {
-    storeResponse('No');    //Store 'no' response in Firestore
     setNoCount(noCount + 1);
   }
 
@@ -65,7 +57,7 @@ function App() {
   }
 
   function toggleMusic() {
-    setIsMusicPlaying(!isMusicPlaying);
+    setIsMusicPlaying(isMusicPlaying);
   }
 
   function handleNext() {
@@ -77,25 +69,6 @@ function App() {
     setCurrentSongIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : playlist.length - 1);
   }
-
-  function storeResponse(response) {
-    firestore.collection('user_responses').add({
-      userId: 'unique_user_id', // You might want to replace this with a user ID if you have user authentication
-      response,
-      timestamp: new Date(),
-    });
-  }
-
-  /*function getResponses() {
-    // Retrieve responses from Firestore
-    firestore
-      .collection('user_responses')
-      .orderBy('timestamp', 'desc') // Order responses by timestamp in descending order
-      .onSnapshot((snapshot) => {
-        const responseList = snapshot.docs.map((doc) => doc.data());
-        setResponses(responseList);
-      });
-  }*/
 
   return (
     <div className="valentine-container">
@@ -143,8 +116,7 @@ function App() {
         </>
       )}
       <ReactPlayer
-        url={playlist[currentSongIndex].url}
-         // Replace with your music file URL
+        url={playlist[currentSongIndex].url}         // Replace with your music file URL
         playing={isMusicPlaying}
         onEnded={handleNext}  // Automatically play next song when current one ends
         //loop={currentSongIndex === playlist.length - 1}
