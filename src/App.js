@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStepForward, faStepBackward } from "@fortawesome/free-solid-svg-icons";
-
+import {firestore} from './firebase'; //Import firestore
 const phrases = [
-  "NO",
+  "No",
   "Are you sure?",
   "Really sure?😢",
   "Pookie please!🥺",
@@ -44,11 +44,19 @@ function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const yesButtonSize = noCount * 10 + 16;
 
+  const [responses, setResponses] = useState([]);
+  useEffect(() => {
+    // Fetch responses from Firestore when the component mounts
+   getResponses();
+  }, []);
+
   function handleYesClick() {
+    storeResponse('Yes');   //Store 'yes' response in Firestore
     setYesPressed(true);
   }
 
   function handleNoClick() {
+    storeResponse('No');    //Store 'no' response in Firestore
     setNoCount(noCount + 1);
   }
 
@@ -68,6 +76,25 @@ function App() {
   function handlePrevious() {
     setCurrentSongIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : playlist.length - 1);
+  }
+
+  function storeResponse(response) {
+    firestore.collection('user_responses').add({
+      userId: 'unique_user_id', // You might want to replace this with a user ID if you have user authentication
+      response,
+      timestamp: new Date(),
+    });
+  }
+
+  function getResponses() {
+    // Retrieve responses from Firestore
+    firestore
+      .collection('user_responses')
+      .orderBy('timestamp', 'desc') // Order responses by timestamp in descending order
+      .onSnapshot((snapshot) => {
+        const responseList = snapshot.docs.map((doc) => doc.data());
+        setResponses(responseList);
+      });
   }
 
   return (
@@ -127,7 +154,17 @@ function App() {
         height="0px"
         autoPlay  // Add the autoPlay attribute
       />
+
+     <div className="responses-container">   //Display responses from Firestore
+        <h2>User Responses</h2>
+        <ul>
+          {responses.map((response, index) => (
+            <li key={index}>{`User ${response.userId} responded with: ${response.response}`}</li>
+          ))}
+        </ul>
+      </div>
     </div>
+    
   );
 }
 
