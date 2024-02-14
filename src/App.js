@@ -11,23 +11,23 @@ const phrases = [
   "Really sure?😢",
   "Pookie please!🥺",
   "Resisting a good time?",
-  "Persistent, huh?",
-  "Let's make it special? :)",
   "Come on, say yes!",
-  "Getting closer, say yes!",
-  "Almost there, say yes!",
   "Can't resist the charm?",
-  "Ready for a yes?",
+  "Almost there, say yes!",
+  "Getting closer, say yes!",
+  "Persistent, huh?",
   "You're tough, say yes!",
-  "Final offer, say yes!",
-  "One small yes?",
-  "Last push, say yes!",
-  "Unlock the fun, say yes!",
-  "Time for a yes!",
+  "Ready for a yes?",
   "I' gonna cry...😭",
-  "You're breaking my heart 😭💔",
+  "One small yes?",
+  "saranghaeyo!!",
   "Come on, just say yes! :)",
-  "Last chance, say yes!",
+  "Let's make it special? :)",
+  "Unlock the fun, say yes!",
+  "labu!!",
+  "Time for a yes!",
+  "Final offer, say yes!",
+  "Whatever, I am taking you",
 ];
 
 const playlist = [
@@ -45,8 +45,21 @@ function App() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const yesButtonSize = noCount * 10 + 16;
+  const [changePicture, setChangePicture] = useState(0); // New state for changing the picture
+  const yesButtonSize = noCount * 1 + 16;
   const [responses, setResponses] = useState([]);
+
+  const imageSrcs = [
+    "https://media1.tenor.com/m/al4a1pG1f8YAAAAC/jump-bear.gif",
+    "https://media.tenor.com/Zy_SCCSexewAAAAi/jumping-for.gif",
+    "https://media1.tenor.com/m/kac1ZogD8GcAAAAC/anime-love.gif",
+    "https://media1.tenor.com/m/d5vxslFG8lcAAAAC/peachandgoma-iloveyou.gif",
+    "https://media1.tenor.com/m/EQ1XagNtbr8AAAAC/love-you-forever.gif",
+    "https://media.tenor.com/xlpKAOBdetYAAAAi/cute-love.gif",
+    "https://media1.tenor.com/m/L2co3N9W-RgAAAAC/hug.gif"
+
+   ] // Replace with your alternate image source
+
 
   //-------------------------------------------------------
   // Load responses from Firestore on component mount
@@ -87,6 +100,30 @@ function App() {
   function handleNoClick() {
     setNoCount(noCount + 1);
     updateResponses("No");
+
+    if (noCount >= 3 && noCount <= 7) {
+      // Switch to the second picture
+      setChangePicture(1);
+    } else if (noCount >= 8 && noCount <= 10) {
+      // Switch to the third picture after the 10th click
+      setChangePicture(2); 
+    }
+    else if (noCount == 11) {
+      // Switch to the third picture after the 10th click
+      setChangePicture(3); 
+    }
+    else if (noCount >= 12 && noCount <= 14) {
+      // Switch to the third picture after the 10th click
+      setChangePicture(4); 
+    }
+    else if (noCount >= 15 && noCount <= 19) {
+    // Switch to the third picture after the 10th click
+    setChangePicture(5); 
+   }
+   else if (noCount >= 20) {
+    // Switch to the third picture after the 10th click
+    setChangePicture(6); 
+   }
   }
 
   function getNoButtonText() {
@@ -133,7 +170,9 @@ function App() {
         <>
           <img
             className="kiss"
-            src="https://media1.tenor.com/m/al4a1pG1f8YAAAAC/jump-bear.gif"
+            src={imageSrcs[changePicture]}
+            //src={changePicture ? alternateImageSrc : initialImageSrc}
+            //src="https://media1.tenor.com/m/al4a1pG1f8YAAAAC/jump-bear.gif"
             alt="bear with heart"
           />
           <div className="text">Will you be my valentine 🌹?</div>
