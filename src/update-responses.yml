@@ -1,1 +1,17 @@
+name: Update Responses
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_responses:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Update Responses
+        run: echo '{"user": "Vr18102000", "response": "Yes"}' > responses.json
 
