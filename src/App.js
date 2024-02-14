@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStepForward, faStepBackward } from "@fortawesome/free-solid-svg-icons";
-
+import { firestore } from "./firebase"; 
 
 const phrases = [
   "No",
@@ -38,7 +38,7 @@ const playlist = [
   {url: "https://soundcloud.com/tomfrane/tom-frane-never-let-this-go?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", name: "Never Let This Go"},
 ];
 
-const RESPONSES_FILE_URL = "https://raw.githubusercontent.com/Vr18102000/valentine/main/responses.json";
+//const RESPONSES_FILE_URL = "https://raw.githubusercontent.com/Vr18102000/valentine/main/responses.json";
 
 function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
@@ -46,7 +46,24 @@ function App() {
   const [yesPressed, setYesPressed] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const yesButtonSize = noCount * 10 + 16;
+  const [responses, setResponses] = useState([]);
 
+  //-------------------------------------------------------
+  // Load responses from Firestore on component mount
+  useEffect(() => {
+    const fetchResponses = async () => {
+      try {
+        const responseCollection = await firestore.collection('responses').get();
+        const responseArray = responseCollection.docs.map(doc => doc.data());
+        setResponses(responseArray);
+      } catch (error) {
+      console.error("Error fetching responses:", error);
+      }
+    };
+    fetchResponses();
+  }, []);
+
+  //-------------------------------------------------
   function handleYesClick() {
     setYesPressed(true);
     updateResponses("Yes");
@@ -75,7 +92,7 @@ function App() {
       prevIndex > 0 ? prevIndex - 1 : playlist.length - 1);
   }
 
-  async function updateResponses(response) {
+  /*async function updateResponses(response) {
     try {
       const currentResponses = await fetch(RESPONSES_FILE_URL).then((res) => res.json());
       const newResponse = { user: "Vr18102000", response }; // Replace "Username" with the actual username or identifier
@@ -93,7 +110,7 @@ function App() {
     } catch (error) {
       console.error("Error updating response:", error);
     }
-  }
+  }*/
 
   return (
     <div className="valentine-container">
