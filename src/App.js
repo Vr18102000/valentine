@@ -63,6 +63,21 @@ function App() {
     fetchResponses();
   }, []);
 
+  async function updateResponses(response) {
+    try {
+      // Assume you have a "responses" collection in Firestore
+      await firestore.collection('responses').add({
+        user: "OdL3DMpgxkFJBtiKj2uF", // Replace with the actual username or identifier
+        response,
+        timestamp: new Date(),
+      });
+  
+      console.log("Response updated successfully");
+    } catch (error) {
+      console.error("Error updating response:", error);
+    }
+  }
+
   //-------------------------------------------------
   function handleYesClick() {
     setYesPressed(true);
@@ -92,25 +107,6 @@ function App() {
       prevIndex > 0 ? prevIndex - 1 : playlist.length - 1);
   }
 
-  /*async function updateResponses(response) {
-    try {
-      const currentResponses = await fetch(RESPONSES_FILE_URL).then((res) => res.json());
-      const newResponse = { user: "Vr18102000", response }; // Replace "Username" with the actual username or identifier
-      const updatedResponses = [...currentResponses, newResponse];
-
-      await fetch(RESPONSES_FILE_URL, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedResponses),
-      });
-
-      console.log("Response updated successfully");
-    } catch (error) {
-      console.error("Error updating response:", error);
-    }
-  }*/
 
   return (
     <div className="valentine-container">
