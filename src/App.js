@@ -46,7 +46,7 @@ function App() {
   const [yesPressed, setYesPressed] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [changePicture, setChangePicture] = useState(0); // New state for changing the picture
-  const yesButtonSize = noCount * 1 + 16;
+  const yesButtonSize = noCount * 5 + 16;
   const [responses, setResponses] = useState([]);
 
   const imageSrcs = [
