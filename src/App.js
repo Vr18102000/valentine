@@ -3,7 +3,8 @@ import "./App.css";
 import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStepForward, faStepBackward } from "@fortawesome/free-solid-svg-icons";
-//import firestore from './firebase'; //Import firestore
+
+
 const phrases = [
   "No",
   "Are you sure?",
@@ -57,7 +58,7 @@ function App() {
   }
 
   function toggleMusic() {
-    setIsMusicPlaying(isMusicPlaying);
+    setIsMusicPlaying(!isMusicPlaying);
   }
 
   function handleNext() {
@@ -119,8 +120,8 @@ function App() {
         url={playlist[currentSongIndex].url}         // Replace with your music file URL
         playing={isMusicPlaying}
         onEnded={handleNext}  // Automatically play next song when current one ends
-        //loop={currentSongIndex === playlist.length - 1}
-        loop={true}
+        loop={currentSongIndex === playlist.length - 1}
+        //loop={true}
         volume={0.5} // Adjust the volume as needed
         width="0px"
         height="0px"
