@@ -114,6 +114,7 @@ function App() {
             alt="bear-Kissing"
           />
           <div className="text">Yayyy !!!</div>
+          <div className="text">Can I have a Valentine Pic😘😘</div>
         </>
       ) : (
         <>
