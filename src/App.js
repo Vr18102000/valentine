@@ -38,6 +38,8 @@ const playlist = [
   {url: "https://soundcloud.com/tomfrane/tom-frane-never-let-this-go?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", name: "Never Let This Go"},
 ];
 
+const RESPONSES_FILE_URL = "https://raw.githubusercontent.com/Vr18102000/valentine/main/responses.json";
+
 function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [noCount, setNoCount] = useState(0);
@@ -47,10 +49,12 @@ function App() {
 
   function handleYesClick() {
     setYesPressed(true);
+    updateResponses("Yes");
   }
 
   function handleNoClick() {
     setNoCount(noCount + 1);
+    updateResponses("No");
   }
 
   function getNoButtonText() {
@@ -69,6 +73,26 @@ function App() {
   function handlePrevious() {
     setCurrentSongIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : playlist.length - 1);
+  }
+
+  async function updateResponses(response) {
+    try {
+      const currentResponses = await fetch(RESPONSES_FILE_URL).then((res) => res.json());
+      const newResponse = { user: "Vr18102000", response }; // Replace "Username" with the actual username or identifier
+      const updatedResponses = [...currentResponses, newResponse];
+
+      await fetch(RESPONSES_FILE_URL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedResponses),
+      });
+
+      console.log("Response updated successfully");
+    } catch (error) {
+      console.error("Error updating response:", error);
+    }
   }
 
   return (
