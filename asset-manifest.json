@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/valentine/static/css/main.48a32d14.css",
-    "main.js": "/valentine/static/js/main.a86a412e.js",
+    "main.css": "/valentine/static/css/main.f80c0cef.css",
+    "main.js": "/valentine/static/js/main.e9a4c127.js",
     "reactPlayerYouTube.js": "/valentine/static/js/reactPlayerYouTube.64e4a052.chunk.js",
     "reactPlayerSoundCloud.js": "/valentine/static/js/reactPlayerSoundCloud.207fabe1.chunk.js",
     "reactPlayerVimeo.js": "/valentine/static/js/reactPlayerVimeo.4955fdc9.chunk.js",
@@ -17,8 +17,8 @@
     "reactPlayerPreview.js": "/valentine/static/js/reactPlayerPreview.e3bc335a.chunk.js",
     "static/js/592.0bcdb36a.chunk.js": "/valentine/static/js/592.0bcdb36a.chunk.js",
     "index.html": "/valentine/index.html",
-    "main.48a32d14.css.map": "/valentine/static/css/main.48a32d14.css.map",
-    "main.a86a412e.js.map": "/valentine/static/js/main.a86a412e.js.map",
+    "main.f80c0cef.css.map": "/valentine/static/css/main.f80c0cef.css.map",
+    "main.e9a4c127.js.map": "/valentine/static/js/main.e9a4c127.js.map",
     "reactPlayerYouTube.64e4a052.chunk.js.map": "/valentine/static/js/reactPlayerYouTube.64e4a052.chunk.js.map",
     "reactPlayerSoundCloud.207fabe1.chunk.js.map": "/valentine/static/js/reactPlayerSoundCloud.207fabe1.chunk.js.map",
     "reactPlayerVimeo.4955fdc9.chunk.js.map": "/valentine/static/js/reactPlayerVimeo.4955fdc9.chunk.js.map",
@@ -35,7 +35,7 @@
     "592.0bcdb36a.chunk.js.map": "/valentine/static/js/592.0bcdb36a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.48a32d14.css",
-    "static/js/main.a86a412e.js"
+    "static/css/main.f80c0cef.css",
+    "static/js/main.e9a4c127.js"
   ]
 }
